@@ -1,3 +1,4 @@
 Stack/
-LinkedList/cmake-build-debug/
-.idea/
+LinkedList/cmake-build-debug/*
+.idea/*
+cmake-build-debug/*
