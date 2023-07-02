@@ -1,4 +1,4 @@
-Stack/
 LinkedList/cmake-build-debug/*
 .idea/*
 cmake-build-debug/*
+*.exe
