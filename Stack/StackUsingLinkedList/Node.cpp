@@ -2,13 +2,14 @@
 #include <iostream>
 #define Node ll::Node
 
+template<typename E>
 class LinkedList{
 public:
     LinkedList() {
         head = nullptr;
     }
-    LinkedList(int64_t val, Node* next){
-        head = new Node;
+    LinkedList(E val, Node<E>* next){
+        head = new Node<E>;
         head->val = val;
         head->next = next;
     }
@@ -19,7 +20,7 @@ public:
         if(head == nullptr) {
             return s1;
         }
-        Node *temp = head;
+        Node<E> *temp = head;
         while(temp) {
             temp = temp->next;
             s1++;
@@ -28,9 +29,12 @@ public:
     }
 
     // Function to return val at the specific index
-    Node* find(uint64_t v){
-        Node *temp = head;
+    Node<E>* find(uint64_t v){
+        Node<E> *temp = head;
         if(head == nullptr)  return nullptr;
+        if (v == 0){
+            return temp;
+        }
         while(temp->next) {
             if(temp->val == v) {
                 break;
@@ -41,14 +45,14 @@ public:
     }
 
     // Function to add Node at the head of list
-    void addHead(Node* newNode){
+    void addHead(Node<E>* newNode){
         if (getCapacity() == 0) {
             head = newNode;
             return;
         }
 
         // temp -> new node
-        Node* temp = newNode;
+        Node<E>* temp = newNode;
         temp->next = head;
         head = temp;
         return;
@@ -57,7 +61,8 @@ public:
 
     // Function to print linked list
     void printList(){
-        Node* temp = head;
+//        return head->val;
+        Node<E>* temp = head;
         while(temp!= nullptr){
             std::cout << temp->val << " ,";
             temp = temp->next;
@@ -65,8 +70,8 @@ public:
     }
 
     // Function to add Node at the end of list
-    void addTail(Node* newNode){
-        Node *temp = head;
+    void addTail(Node<E>* newNode){
+        Node <E>*temp = head;
         while(temp->next) {
             temp = temp->next;
         }
@@ -74,10 +79,10 @@ public:
     }
 
     // Function to delete at the head of list
-    Node* deleteHead(){
+    Node<E>* deleteHead(){
         if (head == nullptr) return nullptr;
 
-        Node *temp = head;
+        Node<E> *temp = head;
         head = head->next;
         temp->next = nullptr;
 
@@ -85,21 +90,21 @@ public:
     }
 
     // Function to delete at the tail of list
-    Node* deleteTail(){
-        Node *temp = head;
+    Node<E>* deleteTail(){
+        Node<E> *temp = head;
         while(temp->next->next) {
             temp = temp->next;
         }
-        Node *temp2;
+        Node<E> *temp2;
         temp2 = temp->next;
         temp->next = nullptr;
         return temp2;
     }
 
     // Function to add anywhere in the list
-    void addNode(Node* newNode, uint64_t idx){
-        Node *temp = head;
-        Node *prev = nullptr;
+    void addNode(Node<E>* newNode, uint64_t idx){
+        Node<E>*temp = head;
+        Node<E> *prev = nullptr;
         int count = 0;
         // If list is empty and idx is 0
         if(temp == nullptr && idx == 0)
@@ -130,17 +135,17 @@ public:
     }
 
     // Function to delete anywhere in the list
-    Node* deleteNode(uint64_t idx){
-        Node *temp = head;
+    Node<E>* deleteNode(uint64_t idx){
+        Node<E> *temp = head;
         int count = 0;
-        Node* prev = nullptr;
+        Node<E>* prev = nullptr;
         if(temp == nullptr){
             std::cout<<"No node to delete!"<<std::endl;
             return nullptr;
         }
         if(idx == 0)
         {
-            Node *temp = deleteHead();
+            Node<E> *temp = deleteHead();
             return temp;
         }
         while(temp && count<idx)
@@ -159,6 +164,6 @@ public:
     }
 
 private:
-    Node* head;
+    Node<E>* head;
 };
 
