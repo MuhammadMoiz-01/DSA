@@ -2,8 +2,10 @@
 
 #include "utils.hpp"
 
+#include <fstream>
 #include <iostream>
 #include <map>
+#include <sstream>
 #include <string>
 #include <typeinfo>
 #include <vector>
@@ -11,14 +13,14 @@
 typedef std::string string;
 
 // Integer class derived from object base class
-class Integer : public Object {
+template <typename T> class Integer : public Object<T> {
 private:
-  int value;
+  T value;
 
 public:
-  explicit Integer(int v = 0) : value(v){};
-  int getValue() const { return value; };
-  int intValue() const override {
+  explicit Integer(T v = 0) : value(v){};
+  T getValue() const { return value; };
+  T intValue() const override {
     const auto *p = dynamic_cast<const Integer *>(this);
     if (p == nullptr) {
       try {
@@ -31,31 +33,31 @@ public:
   }
 };
 
-class Decorator {
-private:                          // member data
-  std::map<string, Object *> map; // the map
+template <typename T> class Decorator {
+private:                             // member data
+  std::map<string, Object<T> *> map; // the map
 public:
-  Object *get(const string &a) // get value of attribute
+  Object<T> *get(const string &a) // get value of attribute
   {
     return map[a];
   }
-  void set(const string &a, Object *d) // set value
+  void set(const string &a, Object<T> *d) // set value
   {
     map[a] = d;
   }
 };
 
-// namespace graph {
-//
-// class Vertex {
-//
-// private:
-//   std::map<string, Object *> map;
-//
-// public:
-//   Object *get(const string &a) { return map[a]; }
-//
-//   void set(const string &a, Object *d) { map[a] = d; }
-// };
-//
-// }; // namespace graph
+namespace graph {
+
+template <typename T> class Graph {
+private:
+  size_t numNodes_;
+  std::vector<std::vector<Decorator<T>>> adj_list;
+
+public:
+  explicit Graph() : numNodes_(0){}
+  void make_graph(const string &filename);
+  void print_graph();
+};
+
+}; // namespace graph

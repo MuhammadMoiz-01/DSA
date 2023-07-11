@@ -1,3 +1,0 @@
-/Users/muhammadmuaz/Documents/GitHub/DSA/cmake_build_Debug/CMakeFiles/run.dir
-/Users/muhammadmuaz/Documents/GitHub/DSA/cmake_build_Debug/CMakeFiles/edit_cache.dir
-/Users/muhammadmuaz/Documents/GitHub/DSA/cmake_build_Debug/CMakeFiles/rebuild_cache.dir

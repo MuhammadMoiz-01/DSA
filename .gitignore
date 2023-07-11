@@ -6,3 +6,5 @@ cmake-build-Debug/*
 .cache/*
 compile_commands.json
 Stack/StackUsingLinkedList/cmake-build-debug/*
+cmake_build_Debug
+Graph/cmake-build-debug/CMakeFiles

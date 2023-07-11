@@ -1,7 +1,7 @@
 #pragma once
 
 // Object Class
-class Object {
+template <typename T> class Object {
 public:
-  virtual int intValue() const = 0;
+  virtual T intValue() const = 0;
 };
