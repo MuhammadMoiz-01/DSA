@@ -16,8 +16,8 @@ int main(int argc, char *argv[]) {
   graph::Graph<int> G;
   // G.make_graph("~/Documents/GitHub/DSA/Graph/data.txt");
 
-  // HACK: opening file and building graph from txt file
-  std::string filename = "~/Documents/GitHub/DSA/Graph/data.txt";
+  // NOTE: opening file and building graph from txt file
+  std::string filename = "./Graph/data.txt";
 
   try {
     print("Trying to open file");
