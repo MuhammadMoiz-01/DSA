@@ -16,8 +16,8 @@ int main(int argc, char *argv[]) {
     // std::cout << v.get("number")->intValue() << std::endl;
 
     /*----------------------------------------------------------------*/
-    graph::Graph<int> G;
-    std::string filename = "./Graph/data.txt";
+    graph::Graph<string> G;
+    std::string filename = "./Graph/Data/data1.txt"; // data1.txt contains string data
     G.make_graph(filename);
     G.print_graph();
     // std::filesystem::path currentPath = std::filesystem::current_path();
