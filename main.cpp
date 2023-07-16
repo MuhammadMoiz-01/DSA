@@ -16,10 +16,11 @@ int main(int argc, char *argv[]) {
     // std::cout << v.get("number")->intValue() << std::endl;
 
     /*----------------------------------------------------------------*/
-    graph::Graph<string> G;
-    std::string filename = "./Graph/Data/data1.txt"; // data1.txt contains string data
+    graph::Graph<int> G;
+    std::string filename = "./Graph/Data/data.txt"; // data1.txt contains string data
     G.make_graph(filename);
     G.print_graph();
+    G.DFS(0);
     // std::filesystem::path currentPath = std::filesystem::current_path();
     // std::cout << "Current working directory: " << currentPath << std::endl;
     // NOTE: opening file and building graph from txt file

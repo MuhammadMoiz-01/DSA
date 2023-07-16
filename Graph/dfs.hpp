@@ -13,7 +13,7 @@
 typedef std::string string;
 
 // Integer class derived from object base class
-template<typename T>
+template <typename T>
 class Integer : public Object<T> {
 private:
     T value;
@@ -23,8 +23,20 @@ public:
 
     T getValue() const { T temp = intValue(); return temp; }
 
+    void setValue(T newval) override{
+        const auto *p = dynamic_cast<const Integer<T> *>(this);
+        if (p == nullptr) {
+            try {
+                throw std::bad_cast();
+            } catch (const std::bad_cast &e) {
+                std::cerr << "Illegal attempt to Integer casting" << std::endl;
+            }
+        }
+        p->value = newval;
+    }
+
     T intValue() const override {
-        const auto *p = dynamic_cast<const Integer *>(this);
+        const auto *p = dynamic_cast<const Integer<T> *>(this);
         if (p == nullptr) {
             try {
                 throw std::bad_cast();
@@ -61,12 +73,25 @@ namespace graph {
 //        std::map<Decorator<T>, std::vector<Decorator<T>>> adj_list;
         std::vector<std::vector<Decorator<T>>> adj_list;
 
+    private:
+        void setVisit(T data, bool state);
+        bool getVisit(T data);
+        void initialize();
+        std::vector<Decorator<T>> neighbor(T data);
+        void RunDFS(T start_val);
+
+
+
     public:
         explicit Graph() : numNodes_(0) {}
 
         void make_graph(const string &filename);
 
         void print_graph() const;
+
+        void DFS(T start);
     };
+
+
 
 }; // namespace graph

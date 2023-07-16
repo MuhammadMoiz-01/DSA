@@ -1,6 +1,7 @@
 #include "dfs.hpp"
 #include <fstream>
 #include <sstream>
+#include <stack>
 
 template<typename T>
 void graph::Graph<T>::make_graph(const string &filename) {
@@ -76,4 +77,77 @@ void graph::Graph<T>::print_graph() const {
         std::cout << std::endl;
     }
 
+}
+
+template<typename T>
+void graph::Graph<T>::setVisit(T data, bool state) {
+    for(size_t i=0; i<adj_list.size(); i++){
+        std::vector<Decorator<T>> v = adj_list[i];
+        if(v[0].get("node_data")->intValue() == data){
+            v[0].get("visited")->setValue(state);
+            break;
+        }
+    }
+    return;
+}
+
+template<typename T>
+bool graph::Graph<T>::getVisit(T data) {
+    bool visitState=false;
+    for(size_t i=0; i<adj_list.size(); i++){
+        std::vector<Decorator<T>> v = adj_list[i];
+        if(v[0].get("node_data")->intValue() == data){
+            visitState = v[0].get("visited")->intValue();
+            break;
+        }
+    }
+    return visitState;
+}
+
+template<typename T>
+void graph::Graph<T>::initialize() {
+    std::cout << "Making visited state in every node and setting it to false" << std::endl;
+    for(size_t i=0; i<adj_list.size(); i++){
+        std::vector<Decorator<T>> v = adj_list[i];
+        v[0].set("visited", new Integer<bool>(false));
+    }
+    return;
+
+}
+
+template<typename T>
+std::vector<Decorator<T>> graph::Graph<T>::neighbor(T data) {
+    std::vector<Decorator<T>> v;
+    for(size_t i=0; i<adj_list.size(); i++){
+        v = adj_list[i];
+        if (v[0].get("node_data")->intValue == data){
+            break;
+        }
+    }
+    return v;
+}
+
+template<typename T>
+void graph::Graph<T>::RunDFS(T start_val) {
+
+    std::cout << "Node : " << start_val << std::endl;
+    this->setVisit(start_val, true);
+    auto neighbor = this->neighbor(start_val);
+    neighbor.erase(neighbor.begin()); // remove the first element as it is the node
+    for(auto nei: neighbor){
+        T nei_val = nei.get("node_data")->intValue();
+        if(!this->getVisit(nei_val)){
+            DFS(nei);
+        }
+    }
+    return;
+}
+
+template<typename T>
+void graph::Graph<T>::DFS(T start) {
+    // initialize visited states
+    this->initialize();
+    // call run dfs
+    this->RunDFS(start);
+    return;
 }
